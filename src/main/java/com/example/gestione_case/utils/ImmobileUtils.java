@@ -55,4 +55,24 @@ public class ImmobileUtils {
         immobile.setListaAnnessi(lAnnessi);
         return immobile;
     }
+
+
+    public static Immobile DTOtoEntityPerInsert(ImmobileDTO immobileDTO) {
+        List<Annessi> lAnnessi = new ArrayList<>();
+        Proprietario oProprietario = new Proprietario();
+        oProprietario.setIdP(immobileDTO.getIdProprietario());
+        Immobile immobile = new Immobile();
+        immobile.setProprietario(oProprietario);
+        immobile.setTipo(immobileDTO.getTipo());
+        immobile.setVani(immobileDTO.getVani());
+        immobile.setCosto(immobileDTO.getCosto());
+        immobile.setSuperfice(immobileDTO.getSuperfice());
+        immobile.setAnno(immobileDTO.getAnno());
+        for(int i = 0; i < immobileDTO.getListaAnnessi().size(); i++){
+            Annessi annessi = AnnessiUtils.DTOtoEntity(immobileDTO.getListaAnnessi().get(i));
+            lAnnessi.add(annessi);
+        }
+        immobile.setListaAnnessi(lAnnessi);
+        return immobile;
+    }
 }

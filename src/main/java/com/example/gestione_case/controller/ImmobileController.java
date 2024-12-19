@@ -28,9 +28,17 @@ public class ImmobileController {
     }
 
     @PostMapping("/insert")
-    public Immobile insert(@RequestBody ImmobileDTO immobile){
-        return immobileService.insert(immobile);
+    public ImmobileDTO insert(@RequestBody ImmobileDTO immobileDTO){
+        return immobileService.insert(immobileDTO);
     }
 
+    @PutMapping("/update/{idImmobile}")
+    public ImmobileDTO update(@RequestBody ImmobileDTO immobileDTO,@PathVariable("idImmobile") Integer id){
+        return immobileService.update(immobileDTO,id);
+    }
 
+    @DeleteMapping("/delete/{idImmobile}")
+    public ImmobileDTO  delete(@PathVariable("idImmobile") Integer id){
+        return immobileService.delete(id);
+    }
 }

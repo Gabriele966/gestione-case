@@ -31,8 +31,7 @@ public class ProprietarioUtils {
         proprietario.setNome(proprietarioDTO.getNome());
         proprietario.setCognome(proprietarioDTO.getCognome());
         for(int i = 0; i < proprietarioDTO.getImmobileDTOList().size(); i++){
-            Immobile immobile = new Immobile();
-            immobile = ImmobileUtils.DTOtoEntity(proprietarioDTO.getImmobileDTOList().get(i));
+            Immobile immobile = ImmobileUtils.DTOtoEntity(proprietarioDTO.getImmobileDTOList().get(i));
             lImmobile.add(immobile);
         }
         proprietario.setListaImmobili(lImmobile);

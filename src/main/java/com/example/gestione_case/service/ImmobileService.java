@@ -33,10 +33,40 @@ public class ImmobileService {
          }
      }
 
-     public Immobile insert(ImmobileDTO immobileDTO){
-         Immobile immobile =  ImmobileUtils.DTOtoEntity(immobileDTO);
-         immobileRepository.save(immobile);
-         return immobile;
+     public ImmobileDTO insert(ImmobileDTO immobileDTO){
+         Immobile immobile =  ImmobileUtils.DTOtoEntityPerInsert(immobileDTO);
+         Immobile imm = immobileRepository.save(immobile);
+         ImmobileDTO immobileDTO1 = ImmobileUtils.EntityToDTO(imm);
+         return immobileDTO1;
+     }
+
+     public ImmobileDTO update(ImmobileDTO immobileDTO, Integer id){
+         Optional<Immobile> immobile = immobileRepository.findById(id);
+         if(immobile.isPresent()){
+               immobileDTO.setIdImmobile(id);
+               Immobile immob = immobileRepository.save(ImmobileUtils.DTOtoEntity(immobileDTO));
+               return ImmobileUtils.EntityToDTO(immob);
+         }else{
+             throw new EntityNotFoundException();
+         }
+     }
+
+     public ImmobileDTO delete(Integer id){
+         Optional<Immobile> immobile = immobileRepository.findById(id);
+         if(immobile.isPresent()){
+             for(int i = 0; i< immobile.get().getListaAnnessi().size(); i++){
+                 if(immobile.get().getListaAnnessi().get(i).getImmobile().equals(immobile.get())){
+                     immobile.get().getListaAnnessi().get(i).setImmobile(null);                 }
+             }
+             immobile.get().getListaAnnessi().clear();
+             immobile.get().setProprietario(null);
+
+             immobileRepository.delete(immobile.get());
+             return ImmobileUtils.EntityToDTO(immobile.get());
+
+         }else {
+             throw new EntityNotFoundException();
+         }
      }
 
 
