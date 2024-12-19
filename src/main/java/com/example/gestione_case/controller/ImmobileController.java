@@ -28,7 +28,7 @@ public class ImmobileController {
     }
 
     @PostMapping("/insert")
-    public Immobile insert(@RequestBody Immobile immobile){
+    public Immobile insert(@RequestBody ImmobileDTO immobile){
         return immobileService.insert(immobile);
     }
 

@@ -33,9 +33,10 @@ public class ImmobileService {
          }
      }
 
-     public Immobile insert(Immobile immobile){
-         Immobile immobile1 = immobileRepository.save(immobile);
-         return immobile1;
+     public Immobile insert(ImmobileDTO immobileDTO){
+         Immobile immobile =  ImmobileUtils.DTOtoEntity(immobileDTO);
+         immobileRepository.save(immobile);
+         return immobile;
      }
 
 
