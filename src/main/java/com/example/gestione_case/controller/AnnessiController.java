@@ -40,4 +40,9 @@ public class AnnessiController {
     public AnnessiDTO delete(@PathVariable("idAnnessi") Integer id){
         return annessiService.delete(id);
     }
+
+    @GetMapping("/countTipoAnnesso")
+    public String contaTipoAnnesso(@RequestParam String tipo){
+        return annessiService.contaTipoAnnesso(tipo);
+    }
 }

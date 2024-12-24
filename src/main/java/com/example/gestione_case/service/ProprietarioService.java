@@ -1,18 +1,14 @@
 package com.example.gestione_case.service;
 
-import com.example.gestione_case.DTO.ImmobileDTO;
 import com.example.gestione_case.DTO.ProprietarioDTO;
-import com.example.gestione_case.entity.Immobile;
 import com.example.gestione_case.entity.Proprietario;
 import com.example.gestione_case.repository.ProprietarioRepository;
 import com.example.gestione_case.utils.ProprietarioUtils;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProprietarioService {
@@ -24,6 +20,7 @@ public class ProprietarioService {
         this.proprietarioRepository = proprietarioRepository;
     }
 
+    @Transactional
     public List<ProprietarioDTO> getAll(){
         List<Proprietario> lProprietario = proprietarioRepository.findAll();
         List<ProprietarioDTO> lProprietarioDTO = new ArrayList<>();
@@ -35,6 +32,7 @@ public class ProprietarioService {
         return lProprietarioDTO;
     }
 
+    @Transactional
     public ProprietarioDTO getProprietarioById(Integer  idProprietario){
         Optional<Proprietario> proprietario = proprietarioRepository.findById(idProprietario);
         if(proprietario.isPresent()){
@@ -45,6 +43,7 @@ public class ProprietarioService {
         }
     }
 
+    @Transactional
     public ProprietarioDTO delete(Integer idProprietario){
         Optional<Proprietario> proprietario = proprietarioRepository.findById(idProprietario);
         if(proprietario.isPresent()){
@@ -63,6 +62,7 @@ public class ProprietarioService {
         }
     }
 
+    @Transactional
     public ProprietarioDTO insert(ProprietarioDTO proprietarioDTO){
         Proprietario proprietario = ProprietarioUtils.DTOToEntity(proprietarioDTO);
         proprietarioRepository.save(proprietario);
@@ -70,6 +70,7 @@ public class ProprietarioService {
         return savedProprietarioDTO;
     }
 
+    @Transactional
     public ProprietarioDTO update (Integer idProprietario, ProprietarioDTO proprietarioDTO){
         Optional<Proprietario> proprietario = proprietarioRepository.findById(idProprietario);
         if(proprietario.isPresent()){
@@ -82,8 +83,32 @@ public class ProprietarioService {
         }
     }
 
+    @Transactional
+    public  List<Object> getMetriProprietario(){
+        List<Object> lProp = proprietarioRepository.getMetriProprietario();
+        return lProp;
+    }
 
+    @Transactional
+    public List<ProprietarioDTO> getProprietarioSpecificoImmobile(String immobile){
+        List<Proprietario> lProp = proprietarioRepository.getProprietarioSpecificoImmobile(immobile);
+        List<ProprietarioDTO> lProprietarioDTO = new ArrayList<>();
+        for(Proprietario proprietario : lProp){
+            ProprietarioDTO propDTO = new ProprietarioDTO();
+            propDTO.setIdProprietario(proprietario.getIdP());
+            propDTO.setNome(proprietario.getNome());
+            propDTO.setCognome(proprietario.getCognome());
+            lProprietarioDTO.add(propDTO);
+        }
+        return lProprietarioDTO;
+    }
 
+    @Transactional
+    public  List<Object> numeroVani(){
+        List<Object> lProp = proprietarioRepository.numeroVani();
+        return lProp;
+    }
 
 
 }
+

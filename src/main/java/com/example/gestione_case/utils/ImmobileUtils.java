@@ -16,7 +16,7 @@ public class ImmobileUtils {
     public static ImmobileDTO EntityToDTO(Immobile immobile) {
         List<AnnessiDTO> lAnessiDTO = new ArrayList<>();
         ImmobileDTO immobileDTO = new ImmobileDTO();
-        immobileDTO.setIdImmobile(immobile.getIdImmobile());
+        immobileDTO.setIdImmobile(immobile.getIdi());
         if (immobile.getProprietario() == null){
             immobileDTO.setIdProprietario(null);
         }else{
@@ -41,7 +41,7 @@ public class ImmobileUtils {
         Proprietario oProprietario = new Proprietario();
         oProprietario.setIdP(immobileDTO.getIdProprietario());
         Immobile immobile = new Immobile();
-        immobile.setIdImmobile(immobileDTO.getIdImmobile());
+        immobile.setIdi(immobileDTO.getIdImmobile());
         immobile.setProprietario(oProprietario);
         immobile.setTipo(immobileDTO.getTipo());
         immobile.setVani(immobileDTO.getVani());
@@ -62,6 +62,7 @@ public class ImmobileUtils {
         Proprietario oProprietario = new Proprietario();
         oProprietario.setIdP(immobileDTO.getIdProprietario());
         Immobile immobile = new Immobile();
+        immobile.setIdi(immobileDTO.getIdImmobile());
         immobile.setProprietario(oProprietario);
         immobile.setTipo(immobileDTO.getTipo());
         immobile.setVani(immobileDTO.getVani());

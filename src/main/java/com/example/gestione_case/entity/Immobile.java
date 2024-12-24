@@ -10,7 +10,7 @@ import java.util.List;
 public class Immobile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idImmobile;
+    private Integer idi;
     @ManyToOne
     @JoinColumn(name = "xidP")
     private Proprietario proprietario;
@@ -28,8 +28,8 @@ public class Immobile {
     private List<Annessi> listaAnnessi;
 
 
-    public Integer getIdImmobile() {return idImmobile;}
-    public void setIdImmobile(int idI) {this.idImmobile = idI;}
+    public Integer getIdi() {return idi;}
+    public void setIdi(Integer idI) {this.idi = idI;}
 
     public Proprietario getProprietario() {return proprietario;}
     public void setProprietario(Proprietario xidP) {this.proprietario = xidP;}

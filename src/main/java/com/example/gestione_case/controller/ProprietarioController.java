@@ -42,6 +42,19 @@ public class ProprietarioController {
         return proprietarioService.update(idProprietario, proprietarioDTO);
     }
 
+    @GetMapping("/metriImmobili")
+    public List<Object> metriImmobili(){
+        return proprietarioService.getMetriProprietario();
+    }
 
+    @GetMapping("/immobile/{tipoImmobile}")
+    public List<ProprietarioDTO> tipoImmobile(@PathVariable("tipoImmobile") String tipoImmobile){
+        return proprietarioService.getProprietarioSpecificoImmobile(tipoImmobile);
+    }
+
+    @GetMapping("/vani")
+    public List<Object> numeroVani(){
+        return proprietarioService.numeroVani();
+    }
 
 }

@@ -7,6 +7,8 @@ import com.example.gestione_case.utils.ImmobileUtils;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 
 @Service
@@ -15,6 +17,7 @@ public class ImmobileService {
     @Autowired
     ImmobileRepository immobileRepository;
 
+    @Transactional
      public List<ImmobileDTO> getAll(){
         List<Immobile> lImmobile = immobileRepository.findAll();
         List<ImmobileDTO> lImmobileDTO = new ArrayList<>();
@@ -24,6 +27,7 @@ public class ImmobileService {
         return lImmobileDTO;
      }
 
+    @Transactional
      public ImmobileDTO getById(Integer id){
          Optional<Immobile> immobile = immobileRepository.findById(id);
          if(immobile.isPresent()){
@@ -33,13 +37,15 @@ public class ImmobileService {
          }
      }
 
+    @Transactional
      public ImmobileDTO insert(ImmobileDTO immobileDTO){
-         Immobile immobile =  ImmobileUtils.DTOtoEntityPerInsert(immobileDTO);
+         Immobile immobile =  ImmobileUtils.DTOtoEntity(immobileDTO);
          Immobile imm = immobileRepository.save(immobile);
          ImmobileDTO immobileDTO1 = ImmobileUtils.EntityToDTO(imm);
          return immobileDTO1;
      }
 
+    @Transactional
      public ImmobileDTO update(ImmobileDTO immobileDTO, Integer id){
          Optional<Immobile> immobile = immobileRepository.findById(id);
          if(immobile.isPresent()){
@@ -51,6 +57,7 @@ public class ImmobileService {
          }
      }
 
+    @Transactional
      public ImmobileDTO delete(Integer id){
          Optional<Immobile> immobile = immobileRepository.findById(id);
          if(immobile.isPresent()){
@@ -69,7 +76,23 @@ public class ImmobileService {
          }
      }
 
+     @Transactional
+    public String countaImmobileConAnnesso(String immobile, String annesso){
+        return immobileRepository.contaAppartemtneiEAnnesso(immobile, annesso);
+     }
 
-
+    @Transactional
+    public List<ImmobileDTO> getTramiteAnno(Integer anno){
+        List<Immobile> lImm = immobileRepository.getTramiteAnno(anno);
+        List<ImmobileDTO> lImmobileDTO = new ArrayList<>();
+        for(Immobile immobile : lImm){
+            ImmobileDTO immobileDTO = new ImmobileDTO();
+            immobileDTO.setIdImmobile(immobile.getIdi());
+            immobileDTO.setTipo(immobile.getTipo());
+            immobileDTO.setAnno(immobile.getAnno());
+            lImmobileDTO.add(immobileDTO);
+        }
+        return lImmobileDTO;
+    }
 
 }

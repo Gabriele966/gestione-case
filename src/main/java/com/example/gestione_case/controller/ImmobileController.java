@@ -41,4 +41,14 @@ public class ImmobileController {
     public ImmobileDTO  delete(@PathVariable("idImmobile") Integer id){
         return immobileService.delete(id);
     }
+
+    @GetMapping("/contaImmobileConAnnesso")
+    public String contaImmobileConAnnesso(@RequestParam String immobile, @RequestParam String annesso){
+        return immobileService.countaImmobileConAnnesso(immobile,annesso);
+    }
+
+    @GetMapping("/anno/{anno}")
+    public List<ImmobileDTO> getTramiteAnno(@PathVariable("anno") Integer anno){
+        return immobileService.getTramiteAnno(anno);
+    }
 }
